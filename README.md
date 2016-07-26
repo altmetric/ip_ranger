@@ -3,7 +3,7 @@
 A gem for converting an IP range to a list of CIDR subnets that matches exactly.
 
 **Current version:** 0.0.1
-**Supported Ruby versions:** 1.8.7, 1.9.2, 1.9.3, 2.0, 2.1, 2.2, 2.3
+**Supported Ruby versions:** 1.8.7, 1.9.2, 1.9.3, 2.0, 2.1, 2.2
 
 ## Usage
 
