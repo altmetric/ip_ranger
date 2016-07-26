@@ -50,6 +50,8 @@ class Russet
   end
 
   def self.spanning_cidr(ip_addrs)
+    fail 'IP sequence cannot contain both IPv4 and IPv6!' if ip_addrs.map(&:family).uniq.length > 1
+
     sorted_ips = ip_addrs.sort
     fail 'IP sequence must contain at least 2 elements!' unless sorted_ips.length > 1
 
@@ -66,11 +68,11 @@ class Russet
       ipnum &= -(1 << (width - prefixlen))
     end
 
-    IPAddr.new(ipnum, Socket::AF_INET).mask(prefixlen)
+    IPAddr.new(ipnum, highest_ip.family).mask(prefixlen)
   end
 
   def self.cidr_partition(target, exclude)
-    exclude = IPAddr.new(exclude, Socket::AF_INET)
+    exclude = IPAddr.new(exclude, target.family)
 
     if exclude.last < target.first
       return [], [], [target]
@@ -94,10 +96,10 @@ class Russet
 
     while exclude.prefixlen >= new_prefixlen
       if exclude.first >= i_upper
-        left << IPAddr.new(i_lower, Socket::AF_INET).mask(new_prefixlen)
+        left << IPAddr.new(i_lower, target.family).mask(new_prefixlen)
         matched = i_upper
       else
-        right << IPAddr.new(i_upper, Socket::AF_INET).mask(new_prefixlen)
+        right << IPAddr.new(i_upper, target.family).mask(new_prefixlen)
         matched = i_lower
       end
 
@@ -177,5 +179,13 @@ RSpec.describe Russet do
 
   it 'return one CIDR address' do
     expect(described_class.iprange_to_cidrs('192.168.1.1', '192.168.1.1')).to contain_exactly(IPAddr.new('192.168.1.1/32'))
+  end
+
+  it 'converts an IPv6 range to CIDR blocks' do
+    expect(described_class.iprange_to_cidrs('2001:db8::', '2001:db8:0000:0000:0000:0000:0000:0001')).to contain_exactly(IPAddr.new('2001:db8::/127'))
+  end
+
+  it 'raises if given incompatible IP addresses' do
+    expect { described_class.iprange_to_cidrs('192.168.1.1', '2001:0db8:0000:0042:0000:8a2e:0370:7334') }.to raise_error('IP sequence cannot contain both IPv4 and IPv6!')
   end
 end
