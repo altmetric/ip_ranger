@@ -1,4 +1,4 @@
-# Russet
+# Russet [![Build Status](https://travis-ci.org/altmetric/russet.svg?branch=master)](https://travis-ci.org/altmetric/russet)
 
 A gem for converting an IP range to a list of CIDR subnets that matches exactly.
 
