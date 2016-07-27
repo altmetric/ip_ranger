@@ -28,7 +28,7 @@ module IPRanger
         cidr_list << cidr_span
       end
 
-      cidr_list.map { |address| address.__getobj__ }
+      cidr_list
     end
 
     def first
