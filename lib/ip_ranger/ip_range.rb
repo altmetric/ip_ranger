@@ -1,6 +1,6 @@
-require 'russet/ip_address'
+require 'ip_ranger/ip_address'
 
-module Russet
+module IPRanger
   class IPRange
     attr_reader :start, :finish
 

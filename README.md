@@ -1,4 +1,4 @@
-# Russet [![Build Status](https://travis-ci.org/altmetric/russet.svg?branch=master)](https://travis-ci.org/altmetric/russet)
+# IP Ranger [![Build Status](https://travis-ci.org/altmetric/ip_ranger.svg?branch=master)](https://travis-ci.org/altmetric/ip_ranger)
 
 A gem for converting an IP range to a list of CIDR subnets that matches exactly.
 
@@ -8,8 +8,9 @@ A gem for converting an IP range to a list of CIDR subnets that matches exactly.
 ## Usage
 
 ```ruby
-require 'russet'
-ip_range = Russet::IPRange.new('192.168.1.5', '192.168.1.42')
+require 'ip_ranger'
+
+ip_range = IPRanger::IPRange.new('192.168.1.5', '192.168.1.42')
 ip_range.cidrs
 # => [#<IPAddr: IPv4:192.168.1.5/255.255.255.255>,
 #  #<IPAddr: IPv4:192.168.1.6/255.255.255.254>,

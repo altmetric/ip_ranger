@@ -1,6 +1,6 @@
-require 'russet'
+require 'ip_ranger'
 
-RSpec.describe Russet::IPRange do
+RSpec.describe IPRanger::IPRange do
   it 'converts an IP range to two IPs' do
     ip_range = described_class.new('1.1.1.1', '1.1.1.2')
 

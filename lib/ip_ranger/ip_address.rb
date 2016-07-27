@@ -1,7 +1,7 @@
 require 'ipaddr'
 require 'delegate'
 
-module Russet
+module IPRanger
   class IPAddress < DelegateClass(IPAddr)
     def self.from_integer(i, family, mask = nil)
       address = IPAddr.new(i, family)

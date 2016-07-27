@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    russet (0.0.1)
+    ip_ranger (0.0.1)
 
 GEM
   remote: https://rubygems.org/
@@ -26,9 +26,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ip_ranger!
   rake (~> 10.5)
   rspec (~> 3.5)
-  russet!
 
 BUNDLED WITH
    1.12.5
