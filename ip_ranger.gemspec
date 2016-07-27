@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'ip_ranger'
-  s.version = '0.0.1'
+  s.version = '0.0.2'
   s.summary = 'A utility for converting IP ranges to CIDR subnets'
   s.homepage = 'https://github.com/altmetric/ip_ranger'
   s.authors = ['Maciej Gajewski', 'Paul Mucur']
