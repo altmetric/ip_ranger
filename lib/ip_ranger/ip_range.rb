@@ -45,15 +45,15 @@ module IPRanger
       ipnum = last
       lower_bound = first
 
-      prefixlen = finish.prefixlen
+      subnet_mask = finish.subnet_mask
       address_space = finish.address_space
 
-      while prefixlen > 0 && ipnum > lower_bound
-        prefixlen -= 1
-        ipnum &= -(1 << (address_space - prefixlen))
+      while subnet_mask > 0 && ipnum > lower_bound
+        subnet_mask -= 1
+        ipnum &= -(1 << (address_space - subnet_mask))
       end
 
-      IPAddress.from_integer(ipnum, finish.family, prefixlen)
+      IPAddress.from_integer(ipnum, finish.family, subnet_mask)
     end
 
     def cidr_partition(target, exclude)
@@ -65,32 +65,32 @@ module IPRanger
         return [target], [], []
       end
 
-      return [], [target], [] if target.prefixlen >= exclude.prefixlen
+      return [], [target], [] if target.subnet_mask >= exclude.subnet_mask
 
       left = []
       right = []
 
-      new_prefixlen = target.prefixlen + 1
+      new_subnet_mask = target.subnet_mask + 1
       target_address_space = target.address_space
 
       target_first = target.numerical_lower_bound
       i_lower = target_first
-      i_upper = target_first + (2 ** (target_address_space - new_prefixlen))
+      i_upper = target_first + (2 ** (target_address_space - new_subnet_mask))
 
-      while exclude.prefixlen >= new_prefixlen
+      while exclude.subnet_mask >= new_subnet_mask
         if exclude.numerical_lower_bound >= i_upper
-          left << IPAddress.from_integer(i_lower, target.family, new_prefixlen)
+          left << IPAddress.from_integer(i_lower, target.family, new_subnet_mask)
           matched = i_upper
         else
-          right << IPAddress.from_integer(i_upper, target.family, new_prefixlen)
+          right << IPAddress.from_integer(i_upper, target.family, new_subnet_mask)
           matched = i_lower
         end
 
-        new_prefixlen += 1
-        break if new_prefixlen > target_address_space
+        new_subnet_mask += 1
+        break if new_subnet_mask > target_address_space
 
         i_lower = matched
-        i_upper = matched + (2 ** (target_address_space - new_prefixlen))
+        i_upper = matched + (2 ** (target_address_space - new_subnet_mask))
       end
 
       [left, [exclude], right.reverse]

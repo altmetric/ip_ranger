@@ -22,7 +22,7 @@ module IPRanger
       new(IPAddr.new(to_i - 1, family))
     end
 
-    def prefixlen
+    def subnet_mask
       mask_addr.to_s(2).count('1')
     end
 
@@ -35,7 +35,7 @@ module IPRanger
     end
 
     def to_cidr
-      "#{to_string}/#{prefixlen}"
+      "#{to_string}/#{subnet_mask}"
     end
 
     private
