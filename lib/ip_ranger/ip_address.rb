@@ -10,7 +10,7 @@ module IPRanger
       new(address)
     end
 
-    def width
+    def address_space
       ipv4? ? 32 : 128
     end
 

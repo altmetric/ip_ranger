@@ -31,6 +31,8 @@ module IPRanger
       cidr_list
     end
 
+    private
+
     def first
       start.first
     end
@@ -39,17 +41,16 @@ module IPRanger
       finish.last
     end
 
-    private
-
     def spanning_cidr
       ipnum = last
-      prefixlen = finish.prefixlen
-      lowest_ipnum = first
-      width = finish.width
+      lower_bound = first
 
-      while prefixlen > 0 && ipnum > lowest_ipnum
+      prefixlen = finish.prefixlen
+      address_space = finish.address_space
+
+      while prefixlen > 0 && ipnum > lower_bound
         prefixlen -= 1
-        ipnum &= -(1 << (width - prefixlen))
+        ipnum &= -(1 << (address_space - prefixlen))
       end
 
       IPAddress.from_integer(ipnum, finish.family, prefixlen)
@@ -70,11 +71,11 @@ module IPRanger
       right = []
 
       new_prefixlen = target.prefixlen + 1
-      target_width = target.width
+      target_address_space = target.address_space
 
       target_first = target.first
       i_lower = target_first
-      i_upper = target_first + (2 ** (target_width - new_prefixlen))
+      i_upper = target_first + (2 ** (target_address_space - new_prefixlen))
 
       while exclude.prefixlen >= new_prefixlen
         if exclude.first >= i_upper
@@ -86,10 +87,10 @@ module IPRanger
         end
 
         new_prefixlen += 1
-        break if new_prefixlen > target_width
+        break if new_prefixlen > target_address_space
 
         i_lower = matched
-        i_upper = matched + (2 ** (target_width - new_prefixlen))
+        i_upper = matched + (2 ** (target_address_space - new_prefixlen))
       end
 
       [left, [exclude], right.reverse]
