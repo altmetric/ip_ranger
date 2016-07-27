@@ -15,13 +15,13 @@ module IPRanger
       cidr_list = []
       cidr_span = spanning_cidr
 
-      if cidr_span.first < first
+      if cidr_span.numerical_lower_bound < first
         exclude = first.pred
         cidr_list = cidr_partition(cidr_span, exclude).last
         cidr_span = cidr_list.pop
       end
 
-      if cidr_span.last > last
+      if cidr_span.numerical_upper_bound > last
         exclude = last.succ
         cidr_list += cidr_partition(cidr_span, exclude).first
       else
@@ -34,11 +34,11 @@ module IPRanger
     private
 
     def first
-      start.first
+      start.numerical_lower_bound
     end
 
     def last
-      finish.last
+      finish.numerical_upper_bound
     end
 
     def spanning_cidr
@@ -59,9 +59,9 @@ module IPRanger
     def cidr_partition(target, exclude)
       exclude = IPAddress.from_integer(exclude, target.family)
 
-      if exclude.last < target.first
+      if exclude.numerical_upper_bound < target.numerical_lower_bound
         return [], [], [target]
-      elsif target.last < exclude.first
+      elsif target.numerical_upper_bound < exclude.numerical_lower_bound
         return [target], [], []
       end
 
@@ -73,12 +73,12 @@ module IPRanger
       new_prefixlen = target.prefixlen + 1
       target_address_space = target.address_space
 
-      target_first = target.first
+      target_first = target.numerical_lower_bound
       i_lower = target_first
       i_upper = target_first + (2 ** (target_address_space - new_prefixlen))
 
       while exclude.prefixlen >= new_prefixlen
-        if exclude.first >= i_upper
+        if exclude.numerical_lower_bound >= i_upper
           left << IPAddress.from_integer(i_lower, target.family, new_prefixlen)
           matched = i_upper
         else

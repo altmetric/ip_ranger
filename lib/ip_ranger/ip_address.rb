@@ -26,11 +26,11 @@ module IPRanger
       mask_addr.to_s(2).count('1')
     end
 
-    def first
+    def numerical_lower_bound
       to_range.first.to_i
     end
 
-    def last
+    def numerical_upper_bound
       to_range.last.to_i
     end
 
