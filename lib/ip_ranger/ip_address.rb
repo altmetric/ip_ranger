@@ -34,6 +34,10 @@ module IPRanger
       to_range.last.to_i
     end
 
+    def to_cidr
+      "#{to_string}/#{prefixlen}"
+    end
+
     private
 
     def mask_addr
