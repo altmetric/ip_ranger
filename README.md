@@ -5,6 +5,18 @@ A gem for converting an arbitrary IP range to the minimal CIDR notation required
 **Current version:** 0.0.2  
 **Supported Ruby versions:** 1.8.7, 1.9.2, 1.9.3, 2.0, 2.1, 2.2, 2.3
 
+## Installation
+
+```
+gem install ip_ranger -v '~> 0.0.2'
+```
+
+Or, in your `Gemfile`:
+
+```ruby
+gem 'ip_ranger', '~> 0.0.2'
+```
+
 ## Usage
 
 ```ruby
