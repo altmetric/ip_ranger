@@ -57,13 +57,8 @@ module IPRanger
 
     def cidr_partition(target, exclude)
       exclude = IPAddress.from_integer(exclude, target.family)
-
-      if exclude.last < target.first
-        return [], [], [target]
-      elsif target.last < exclude.first
-        return [target], [], []
-      end
-
+      return [], [], [target] if exclude.last < target.first
+      return [target], [], [] if target.last < exclude.first
       return [], [target], [] if target.prefixlen >= exclude.prefixlen
 
       left = []

@@ -15,11 +15,15 @@ module IPRanger
     end
 
     def succ
-      new(super)
+      self.class.new(super)
     end
 
     def pred
-      new(IPAddr.new(to_i - 1, family))
+      self.class.new(IPAddr.new(to_i - 1, family))
+    end
+
+    def to_cidr
+      "#{to_string}/#{prefixlen}"
     end
 
     def prefixlen
@@ -32,10 +36,6 @@ module IPRanger
 
     def last
       to_range.last.to_i
-    end
-
-    def to_cidr
-      "#{to_string}/#{prefixlen}"
     end
 
     private
