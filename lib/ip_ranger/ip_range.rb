@@ -69,7 +69,7 @@ module IPRanger
 
       target_first = target.first
       i_lower = target_first
-      i_upper = target_first + (2 ** (target_width - new_prefixlen))
+      i_upper = target_first + (2**(target_width - new_prefixlen))
 
       while exclude.prefixlen >= new_prefixlen
         if exclude.first >= i_upper
@@ -84,7 +84,7 @@ module IPRanger
         break if new_prefixlen > target_width
 
         i_lower = matched
-        i_upper = matched + (2 ** (target_width - new_prefixlen))
+        i_upper = matched + (2**(target_width - new_prefixlen))
       end
 
       [left, [exclude], right.reverse]

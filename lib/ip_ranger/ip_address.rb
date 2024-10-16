@@ -3,8 +3,8 @@ require 'delegate'
 
 module IPRanger
   class IPAddress < DelegateClass(IPAddr)
-    def self.from_integer(i, family, mask = nil)
-      address = IPAddr.new(i, family)
+    def self.from_integer(ipnum, family, mask = nil)
+      address = IPAddr.new(ipnum, family)
       address = address.mask(mask) if mask
 
       new(address)
@@ -41,7 +41,7 @@ module IPRanger
     private
 
     def mask_addr
-      __getobj__.instance_variable_get('@mask_addr')
+      __getobj__.instance_variable_get(:@mask_addr)
     end
   end
 end
