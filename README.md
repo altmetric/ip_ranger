@@ -1,4 +1,4 @@
-# IP Ranger [![Build Status](https://travis-ci.org/altmetric/ip_ranger.svg?branch=master)](https://travis-ci.org/altmetric/ip_ranger)
+# IP Ranger
 
 A gem for converting an arbitrary IP range to the minimal CIDR notation required to describe it exactly.
 
@@ -125,6 +125,6 @@ Return the string CIDR notation for this IP address.
 
 ## License
 
-Copyright © 2016 Altmetric LLP
+Copyright © 2016-2024 Altmetric LLP
 
 Distributed under the MIT License.
