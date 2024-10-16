@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+UNRELEASED - 2024-10-16
+### Changed
+- Support Ruby >= 2.7
+
 ## [0.0.2] - 2016-10-07
 ### Changed
 - Return instances of a new IP Address class rather than Ruby's own IPAddr so
