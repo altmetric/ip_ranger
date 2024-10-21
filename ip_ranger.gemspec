@@ -9,5 +9,7 @@ Gem::Specification.new do |s|
   s.files = Dir['lib/**/*.rb']
   s.test_files = Dir['spec/**/*.rb']
 
-  s.add_development_dependency('rspec', '~> 3.5')
+  s.add_development_dependency('rspec')
+  s.add_development_dependency('rake')
+  s.add_development_dependency('house_style')
 end

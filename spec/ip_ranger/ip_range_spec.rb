@@ -82,7 +82,7 @@ RSpec.describe IPRanger::IPRange do
   end
 
   it 'raises if given incompatible IP addresses' do
-    expect { described_class.new('192.168.1.1', '2001:0db8:0000:0042:0000:8a2e:0370:7334') }.
-      to raise_error('IP sequence cannot contain both IPv4 and IPv6!')
+    expect { described_class.new('192.168.1.1', '2001:0db8:0000:0042:0000:8a2e:0370:7334') }
+      .to raise_error('IP sequence cannot contain both IPv4 and IPv6!')
   end
 end

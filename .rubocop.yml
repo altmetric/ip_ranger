@@ -1,0 +1,2 @@
+inherit_gem:
+  house_style: ruby/rubocop.yml
